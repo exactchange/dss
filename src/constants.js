@@ -9,9 +9,7 @@ const {
   PORT
 } = process.env;
 
-const NODE_ENV = NODE.match(/home\/benny/)
-  ? 'development'
-  : 'production';
+const NODE_ENV = process.env.NODE_ENV || NODE.match(/home\//) ? 'development' : 'production';
 
 module.exports = {
   API_KEY,
