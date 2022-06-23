@@ -1,0 +1,26 @@
+{
+  "name": "diamond-search-and-store",
+  "version": "0.0.4",
+  "engines": {
+    "node": "16.14.2"
+  },
+  "scripts": {
+    "start": "node index",
+    "deploy": "gcloud app deploy --project=diamond-354213 --version=0-0-4 --quiet",
+    "logs": "gcloud app logs tail --project=diamond-354213",
+    "lint": "eslint ./src/apps --fix && eslint --fix ./src/services"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-service-client": "^1.0.3",
+    "path": "^0.12.7",
+    "uuidv4": "^6.2.12"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.2",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/preset-env": "^7.18.2"
+  }
+}

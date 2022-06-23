@@ -1,0 +1,20 @@
+# dependencies
+/node_modules
+
+# env
+.env
+.env.dev
+.env.prod
+
+# db
+/src/services/diamond/data/*.json
+
+# misc
+.DS_Store
+npm-debug.log*
+
+# cloud
+.gcloudignore
+.dockerignore
+Dockerfile
+app.yaml
