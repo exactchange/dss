@@ -7,14 +7,8 @@
 .env.prod
 
 # db
-/src/services/diamond/data/*.json
+# /src/services/diamond/data
 
 # misc
 .DS_Store
 npm-debug.log*
-
-# cloud
-.gcloudignore
-.dockerignore
-Dockerfile
-app.yaml

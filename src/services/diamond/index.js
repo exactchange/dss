@@ -1,12 +1,5 @@
 /* eslint-disable no-magic-numbers */
 
-/*
- *
- * Service
- * (default)
- *
- */
-
 (() => {
 
   const { http } = require('node-service-client');
@@ -40,6 +33,42 @@
         }
 
         return dss.write(collectionName, query, payload);
+      },
+      backup: async ({ apiKey, collectionName }) => {
+        console.log('<Diamond> :: POST /diamond/backup');
+
+        if (apiKey !== API_KEY) {
+          return NOT_ALLOWED_ERROR;
+        }
+
+        return dss.backup(collectionName);
+      },
+      sync: async ({ apiKey, collectionName }) => {
+        console.log('<Diamond> :: POST /diamond/sync');
+
+        if (apiKey !== API_KEY) {
+          return NOT_ALLOWED_ERROR;
+        }
+
+        return dss.sync(collectionName);
+      },
+      store: async ({ apiKey, media }) => {
+        console.log('<Diamond> :: POST /diamond/store');
+
+        if (apiKey !== API_KEY) {
+          return NOT_ALLOWED_ERROR;
+        }
+
+        return dss.store(media);
+      },
+      search: async ({ apiKey, mediaAddress }) => {
+        console.log('<Diamond> :: POST /diamond/search');
+
+        if (apiKey !== API_KEY) {
+          return NOT_ALLOWED_ERROR;
+        }
+
+        return dss.search(mediaAddress);
       }
     },
     PUT: {},

@@ -16,6 +16,5 @@ module.exports = {
   NODE_ENV,
   HOST,
   PORT,
-  URL: HOST,
-  // URL: `${HOST}:${PORT}`
+  URL: HOST
 };

@@ -1,8 +1,4 @@
-const {
-  NODE_ENV,
-  PORT,
-  URL
-} = require('./src/constants');
+const { NODE_ENV, PORT, URL } = require('./src/constants');
 
 // Define backend services
 
@@ -20,10 +16,6 @@ const Http = express();
 Http.use(express.json({ limit: '10mb' }));
 Http.use(express.urlencoded({ extended: false, limit: '10mb' }));
 Http.use(cors());
-
-// GCP
-
-Http.set('trust proxy', true);
 
 // Middleware: https/www redirect
 
