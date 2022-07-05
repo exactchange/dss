@@ -3,11 +3,9 @@
 
 # env
 .env
-.env.dev
-.env.prod
 
-# db
-/src/services/diamond/data
+# db - For most project repos, ignore your entire data folder:
+# /src/services/diamond/data/*
 
 # misc
 .DS_Store
