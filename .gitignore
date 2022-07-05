@@ -7,7 +7,7 @@
 .env.prod
 
 # db
-# /src/services/diamond/data
+/src/services/diamond/data
 
 # misc
 .DS_Store

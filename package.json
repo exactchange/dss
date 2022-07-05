@@ -1,13 +1,11 @@
 {
   "name": "diamond-search-and-store",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "engines": {
     "node": "16.14.2"
   },
   "scripts": {
     "start": "node index",
-    "deploy": "gcloud app deploy --project=diamond-354213 --version=0-0-7 --quiet",
-    "logs": "gcloud app logs tail --project=diamond-354213",
     "lint": "eslint --fix ./src/services"
   },
   "dependencies": {
