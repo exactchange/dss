@@ -22,9 +22,6 @@
       backup: async ({ collectionName }) => (
         dss.backup(collectionName)
       ),
-      sync: async ({ collectionName }) => (
-        dss.sync(collectionName)
-      ),
       store: async ({ media }) => (
         dss.store(media)
       ),

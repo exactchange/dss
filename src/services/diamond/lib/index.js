@@ -1,9 +1,7 @@
 /* eslint-disable no-magic-numbers */
 
 const fs = require('fs').promises;
-const fetch = require('node-fetch');
 
-const { API_KEY, API_URL } = require('../../../constants');
 const { generateUUID } = require('../../../utilities');
 
 const Database = dataURI => {
@@ -21,58 +19,7 @@ const Database = dataURI => {
     return {
       read: getCollection,
       write: updateCollection,
-      backup: backupCollection,
-      sync: syncWithRemoteCollection
-    };
-  };
-
-  syncWithRemoteCollection = async collectionName => {
-    const dbResponse = await fetch(
-      `${API_URL}/diamond/read`,
-      {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          apiKey: API_KEY,
-          collectionName
-        })
-      }
-    );
-
-    if (!dbResponse?.ok) {
-      console.log('<Diamond> :: Failed to fetch remote database.');
-
-      return {
-        data: null,
-        read: getCollection,
-        write: updateCollection,
-        backup: backupCollection
-      };
-    }
-
-    const { data } = await dbResponse.json();
-
-    const result = {};
-
-    Object.values(data).forEach(record => {
-      result[record._id] = record;
-    });
-
-    await fs.writeFile(
-      `${dataURI}/${collectionName}.json`,
-      JSON.stringify(result),
-      'utf8'
-    );
-
-    return {
-      data: result,
-      read: getCollection,
-      write: updateCollection,
-      backup: backupCollection,
-      sync: syncWithRemoteCollection
+      backup: backupCollection
     };
   };
 
@@ -96,8 +43,7 @@ const Database = dataURI => {
       data: result,
       read: getCollection,
       write: updateCollection,
-      backup: backupCollection,
-      sync: syncWithRemoteCollection
+      backup: backupCollection
     };
   };
 
@@ -152,8 +98,7 @@ const Database = dataURI => {
       data: result,
       read: getCollection,
       write: updateCollection,
-      backup: backupCollection,
-      sync: syncWithRemoteCollection
+      backup: backupCollection
     };
   };
 
@@ -173,7 +118,6 @@ const Database = dataURI => {
     read: getCollection,
     write: updateCollection,
     backup: backupCollection,
-    sync: syncWithRemoteCollection,
     store: storeMedia,
     search: searchMedia
   };
