@@ -1,13 +1,20 @@
 /* eslint-disable no-magic-numbers */
 
-(() => {
+/*
+ *
+ * Service
+ * (default)
+ *
+ */
 
+(() => {
+  const path = require('path');
   const { http } = require('node-service-client');
 
   const { API_KEY } = require('../../constants');
   const { NOT_ALLOWED_ERROR } = require('../../errors');
 
-  const dss = require('./lib');
+  const dss = require('./lib')(path.join(__dirname, '/../diamond/data'));
 
   /*
   Service (HTTP)
