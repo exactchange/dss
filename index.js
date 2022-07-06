@@ -1,3 +1,6 @@
+// The default export - Import this file to run diamond as a standalone web server
+// Library export (src/services/diamond/index.js) - To use diamond as an http microservice
+
 const { NODE_ENV, PORT, URL } = require('./src/constants');
 
 // Define backend services

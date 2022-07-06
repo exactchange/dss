@@ -1,82 +1,36 @@
 /* eslint-disable no-magic-numbers */
 
-/*
- *
- * Service
- * (default)
- *
- */
+// Library export - Import this file to use diamond as an http microservice
+// Default export (/index.js) - To run diamond as a standalone web server
 
 (() => {
-  const path = require('path');
   const { http } = require('node-service-client');
 
-  const { API_KEY } = require('../../constants');
-  const { NOT_ALLOWED_ERROR } = require('../../errors');
+  const { DATA_URI } = require('../../constants');
 
-  const dss = require('./lib')(path.join(__dirname, '/../diamond/data'));
-
-  /*
-  Service (HTTP)
-  */
+  const dss = require('./lib')(DATA_URI);
 
   module.exports = http({
     GET: {},
     POST: {
-      read: async ({ apiKey, collectionName, query }) => {
-        console.log('<Diamond> :: POST /diamond/read');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.read(collectionName, query);
-      },
-      write: async ({ apiKey, collectionName, query, payload }) => {
-        console.log('<Diamond> :: POST /diamond/write');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.write(collectionName, query, payload);
-      },
-      backup: async ({ apiKey, collectionName }) => {
-        console.log('<Diamond> :: POST /diamond/backup');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.backup(collectionName);
-      },
-      sync: async ({ apiKey, collectionName }) => {
-        console.log('<Diamond> :: POST /diamond/sync');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.sync(collectionName);
-      },
-      store: async ({ apiKey, media }) => {
-        console.log('<Diamond> :: POST /diamond/store');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.store(media);
-      },
-      search: async ({ apiKey, mediaAddress }) => {
-        console.log('<Diamond> :: POST /diamond/search');
-
-        if (apiKey !== API_KEY) {
-          return NOT_ALLOWED_ERROR;
-        }
-
-        return dss.search(mediaAddress);
-      }
+      read: async ({ collectionName, query }) => (
+        dss.read(collectionName, query)
+      ),
+      write: async ({ collectionName, query, payload }) => (
+        dss.write(collectionName, query, payload)
+      ),
+      backup: async ({ collectionName }) => (
+        dss.backup(collectionName)
+      ),
+      sync: async ({ collectionName }) => (
+        dss.sync(collectionName)
+      ),
+      store: async ({ media }) => (
+        dss.store(media)
+      ),
+      search: async ({ mediaAddress }) => (
+        dss.search(mediaAddress)
+      )
     },
     PUT: {},
     DELETE: {}

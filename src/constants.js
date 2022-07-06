@@ -5,19 +5,17 @@ dotenv.config();
 
 const {
   NODE = '',
-  API_KEY,
-  DATA_PATH,
+  DATA_URI,
   HOST,
   PORT
 } = process.env;
 
 const NODE_ENV = process.env.NODE_ENV || NODE.match(/home\//) ? 'development' : 'production';
-const DATA_URI = path.join(__dirname, DATA_PATH);
+const DB_URI = path.join(`${DATA_URI ? DATA_URI : __dirname}`, 'diamond', 'data');
 
 module.exports = {
-  API_KEY,
   NODE_ENV,
-  DATA_URI,
+  DATA_URI: DB_URI,
   HOST,
   PORT,
   URL: HOST
