@@ -4,6 +4,11 @@ const fs = require('fs').promises;
 
 const { generateUUID } = require('../../../utilities');
 
+const MEDIA_TYPES = {
+  base64: 'b64',
+  json: 'json'
+};
+
 const Database = dataURI => {
   let getCollection, updateCollection, backupCollection, storeMedia;
 
@@ -102,17 +107,20 @@ const Database = dataURI => {
     };
   };
 
-  storeMedia = async media => {
+  storeMedia = async (mediaAddress, mediaType = Object.keys(MEDIA_TYPES)[0]) => {
     const fileId = generateUUID();
+    const extension = MEDIA_TYPES[mediaType];
 
-    await fs.writeFile(`${dataURI}/b64/${fileId}.b64`, media, 'utf8');
+    await fs.writeFile(`${dataURI}/${extension}/${fileId}.${extension}`, media, 'utf8');
 
     return `data:image/${fileId}`;
   };
 
-  searchMedia = async mediaAddress => (
-    fs.readFile(`${dataURI}/b64/${mediaAddress}.b64`, 'utf8')
-  );
+  searchMedia = async (mediaAddress, mediaType = Object.keys(MEDIA_TYPES)[0]) => {
+    const extension = MEDIA_TYPES[mediaType];
+
+    fs.readFile(`${dataURI}/${extension}/${mediaAddress}.${extension}`, 'utf8')
+  };
 
   return {
     read: getCollection,
