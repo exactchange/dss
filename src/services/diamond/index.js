@@ -22,8 +22,8 @@
       backup: async ({ collectionName }) => (
         dss.backup(collectionName)
       ),
-      store: async ({ media }) => (
-        dss.store(media)
+      store: async ({ media, mediaType }) => (
+        dss.store(media, mediaType)
       ),
       search: async ({ mediaAddress, mediaType }) => (
         dss.search(mediaAddress, mediaType)

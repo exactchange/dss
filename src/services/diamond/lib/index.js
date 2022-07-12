@@ -107,7 +107,7 @@ const Database = dataURI => {
     };
   };
 
-  storeMedia = async (mediaAddress, mediaType = Object.keys(MEDIA_TYPES)[0]) => {
+  storeMedia = async (media, mediaType = Object.keys(MEDIA_TYPES)[0]) => {
     const fileId = generateUUID();
     const extension = MEDIA_TYPES[mediaType];
 
@@ -119,7 +119,7 @@ const Database = dataURI => {
   searchMedia = async (mediaAddress, mediaType = Object.keys(MEDIA_TYPES)[0]) => {
     const extension = MEDIA_TYPES[mediaType];
 
-    fs.readFile(`${dataURI}/${extension}/${mediaAddress}.${extension}`, 'utf8')
+    return fs.readFile(`${dataURI}/${extension}/${mediaAddress}.${extension}`, 'utf8');
   };
 
   return {
