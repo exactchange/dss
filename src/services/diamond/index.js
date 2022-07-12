@@ -25,8 +25,8 @@
       store: async ({ media }) => (
         dss.store(media)
       ),
-      search: async ({ mediaAddress }) => (
-        dss.search(mediaAddress)
+      search: async ({ mediaAddress, mediaType }) => (
+        dss.search(mediaAddress, mediaType)
       )
     },
     PUT: {},
