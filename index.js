@@ -1,9 +1,9 @@
-// The default export - Import this file to run diamond as a standalone web server
-// Library export (src/services/diamond/index.js) - To use diamond as an http microservice
+const {
+  PORT,
+  URL
+} = require('./src/constants');
 
-const { NODE_ENV, PORT, URL } = require('./src/constants');
-
-// Define backend services
+// Define services
 
 const Services = {
   "Diamond": {}
@@ -11,48 +11,32 @@ const Services = {
 
 // Configure HTTP
 
+const http = require('http');
 const express = require('express');
 const cors = require('cors');
 
-const Http = express();
+const httpApi = express();
 
-Http.use(express.json({ limit: '10mb' }));
-Http.use(express.urlencoded({ extended: false, limit: '10mb' }));
-Http.use(cors());
+httpApi.use(express.json({ limit: '10mb' }));
+httpApi.use(express.urlencoded({ extended: false, limit: '10mb' }));
+httpApi.use(cors());
 
-// Middleware: https/www redirect
-
-Http.use((req, res, next) => {
-  let host = req.headers.host;
-
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-  if (NODE_ENV === 'production') {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      if (!req.headers.host.match('www.')) {
-        host = `www.${host}`;
-      }
-
-      return res.redirect(`https://${host}${req.url}`);
-    }
-  }
-
-  return next();
-});
-
-const server = require('http').createServer(Http);
+const server = http.createServer(httpApi);
 
 server.listen(PORT, () => {
-  console.log(`Service "Http" is online at ${URL}`);
+  console.log(`Service "HttpApi" is online at ${URL}`);
 
   // Start backend services
 
-  Services.Diamond = require('./src/services/diamond');
+  Object.keys(Services).forEach(key => {
+    const serviceSlug = key.replace(/ /g, '-');
+
+    Services[serviceSlug] = require(`./src/services/${serviceSlug.toLowerCase()}`);
+  });
 
   // Ping handler
 
-  Http.get('/', (_, res) => res.send('<Diamond Search & Store> is online.'));
+  httpApi.get('/', (_, res) => res.send('Services are online.'));
 
   // Route service requests
 
@@ -70,7 +54,7 @@ server.listen(PORT, () => {
       // Handle http
 
       if (Service.type === 'http') {
-        Http.get(`${slug}/*`, (req, res) => {
+        httpApi.get(`${slug}/*`, (req, res) => {
           if (Object.keys(req.query).length) {
             return Service.onHttpSearch(req, res);
           }
@@ -78,15 +62,15 @@ server.listen(PORT, () => {
           return Service.onHttpGet(req, res);
         });
 
-        Http.post(`${slug}/*`, (req, res) => (
+        httpApi.post(`${slug}/*`, (req, res) => (
           Service.onHttpPost(req, res)
         ));
 
-        Http.put(`${slug}/*`, (req, res) => (
+        httpApi.put(`${slug}/*`, (req, res) => (
           Service.onHttpPut(req, res)
         ));
 
-        Http.delete(`${slug}/*`, (req, res) => (
+        httpApi.delete(`${slug}/*`, (req, res) => (
           Service.onHttpDelete(req, res)
         ));
       }
