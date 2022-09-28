@@ -9,7 +9,7 @@ const {
   PORT
 } = process.env;
 
-const DB_URI = path.join(`${DATA_URI || __dirname}`, 'diamond/data');
+const DB_URI = path.join(`${DATA_URI || __dirname}`, '.dss/data');
 
 module.exports = {
   DATA_URI: DB_URI,
