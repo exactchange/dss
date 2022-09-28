@@ -4,10 +4,10 @@
 # env
 .env
 
-# db - For most project repos, you should ignore the src/diamond/data folder.
+# db - For most project repos, you should gitignore the .dss folder.
 #      This project is loaded with a default collection "images",
 #      with 1 sample image.
-# src/services/diamond/data/*
+# .dss
 
 # misc
 .DS_Store
