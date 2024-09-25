@@ -9,11 +9,14 @@ const dss = require('./lib')(DATA_URI);
 module.exports = http({
   GET: {},
   POST: {
-    read: async ({ collectionName, query, page }) => (
-      dss.read(collectionName, query, page)
+    read: async ({ collectionName, query, page, limit }) => (
+      dss.read(collectionName, query, page, limit)
     ),
     write: async ({ collectionName, query, payload }) => (
       dss.write(collectionName, query, payload)
+    ),
+    delete: async ({ collectionName, query }) => (
+      dss.delete(collectionName, query)
     ),
     backup: async ({ collectionName }) => (
       dss.backup(collectionName)
