@@ -15,8 +15,8 @@ module.exports = http({
     write: async ({ collectionName, query, payload }) => (
       dss.write(collectionName, query, payload)
     ),
-    delete: async ({ collectionName, query }) => (
-      dss.delete(collectionName, query)
+    delete: async ({ collectionName, query, selection }) => (
+      dss.delete(collectionName, query, selection)
     ),
     backup: async ({ collectionName }) => (
       dss.backup(collectionName)
